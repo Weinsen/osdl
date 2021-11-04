@@ -6,6 +6,8 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <exception>
+#include <list>
+#include <thread>
 
 #include "Renderer.h"
 
@@ -20,12 +22,14 @@ class MainWindowException : public std::exception {
 class MainWindow {
 private:
 	SDL_Window* window;
+	std::list<Renderer*> renderers_;
 
 public:
 	MainWindow();
 	~MainWindow();
 	void SetFullscreen();
 	Renderer* CreateRenderer();
+	std::thread* Loop();
 };
 
 }
