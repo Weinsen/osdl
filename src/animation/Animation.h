@@ -2,9 +2,11 @@
 #define SRC_ANIMATION_ANIMATION_H
 
 #include "Widget.h"
+#include "Geometry.h"
 
 namespace OSDL {
 
+class Geometry;
 class Widget;
 
 class Animation {

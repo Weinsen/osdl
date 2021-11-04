@@ -5,12 +5,14 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <list>
-#include "Geometry.h"
 #include "Animation.h"
+#include "Geometry.h"
+#include "Renderer.h"
 
 namespace OSDL {
 
 class Animation;
+class Renderer;
 
 class Widget {
 
@@ -18,7 +20,7 @@ protected:
 	Animation* animation_;
 	Geometry geometry_;
 	SDL_Texture* texture_;
-	SDL_Renderer* renderer_;
+	Renderer* renderer_;
 	std::list<Widget*> widgets_;
 	Widget* parent_;
 	std::string el_name_;
@@ -37,9 +39,10 @@ public:
 	void SetDimension(int w, int h);
 	void SetPosition(const Geometry& pos);
 	void SetAnimation(Animation *animation);
+	void Load();
 	void Render(const Geometry* position = NULL);
 	void SetParent(Widget* parent_);
-	void SetRenderer(SDL_Renderer* renderer);
+	void SetRenderer(Renderer* renderer);
 	void AddChild(Widget* child);
 	void SetAlive(bool alive = true);
 	void SetWidgetName(std::string name);
