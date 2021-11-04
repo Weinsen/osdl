@@ -11,6 +11,8 @@
 
 namespace OSDL {
 
+class Widget;
+
 class Renderer {
 private:
 	SDL_Renderer* renderer_;
@@ -24,9 +26,12 @@ public:
 	void Clear();
 	void Render();
 	void RenderPresent();
+	void LoadWidgets();
 	void RenderWidgets();
+	void Update();
 	void AddWidget(Widget* widget);
 	void RemoveWidget(Widget* widget);
+	SDL_Renderer* Sdl();
 };
 
 }

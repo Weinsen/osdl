@@ -32,19 +32,37 @@ void Renderer::RenderWidgets() {
 	}
 }
 
+void Renderer::LoadWidgets() {
+	for (auto w : widgets_) {
+		w->Load();
+	}
+}
+
 // TODO check return 
 void Renderer::Render() {
 	std::lock_guard<std::mutex> lock(mtx_);
-	Clear();
-	RenderWidgets();
-	RenderPresent();
-	update_ = false;
+	LoadWidgets();
+	if (update_) {
+		Clear();
+		RenderWidgets();
+		RenderPresent();
+		update_ = false;
+	}
+}
+
+void Renderer::Update() {
+	// std::lock_guard<std::mutex> lock(mtx_);
+	update_ = true;
+}
+
+SDL_Renderer* Renderer::Sdl() {
+	return renderer_;
 }
 
 void Renderer::AddWidget(Widget* widget) {
 	std::lock_guard<std::mutex> lock(mtx_);
 	widgets_.push_back(widget);
-	widget->SetRenderer(renderer_);
+	widget->SetRenderer(this);
 }
 
 void Renderer::RemoveWidget(Widget* widget) {
