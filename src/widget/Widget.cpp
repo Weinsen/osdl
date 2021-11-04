@@ -35,24 +35,39 @@ void Widget::SetPosition(const Geometry& pos) {
     geometry_.angle = pos.angle;
 }
 
-// TODO check return
-void Widget::Render(const Geometry* position) {
+void Widget::Load() {
+
     if (!renderer_) {
         return;
     }
 
     if (!texture_ || update_) {
         update_ = false;
+        renderer_->Update();
         Clear();
         Init();
     }
 
     if (animation_) {
         animation_->Animate();
+        renderer_->Update();
         if (animation_->IsDone()) {
             delete(animation_);
             animation_ = NULL;
         }
+    }
+
+    for (auto w : widgets_) {
+        w->Load();
+    }
+
+}
+
+// TODO check return
+void Widget::Render(const Geometry* position) {
+
+    if (!renderer_) {
+        return;
     }
 
     Geometry pos = geometry_;
@@ -60,7 +75,7 @@ void Widget::Render(const Geometry* position) {
         pos +=  *position;
     }
     SDL_Rect renderQuad = {pos.x, pos.y, geometry_.w, geometry_.h};
-    SDL_RenderCopyEx(renderer_, texture_, NULL, &renderQuad, pos.angle, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer_->Sdl(), texture_, NULL, &renderQuad, pos.angle, NULL, SDL_FLIP_NONE);
 
     PreRender();
 
@@ -75,7 +90,7 @@ void Widget::Render(const Geometry* position) {
 
 }
 
-void Widget::SetRenderer(SDL_Renderer* renderer) {
+void Widget::SetRenderer(Renderer* renderer) {
 	renderer_ = renderer;
 }
 
@@ -101,6 +116,7 @@ Geometry *Widget::GetPosition() {
 
 void Widget::Update() {
     update_ = true;
+    renderer_->Update();
 }
 
 void Widget::Clear() {
