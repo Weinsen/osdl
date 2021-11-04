@@ -57,8 +57,16 @@ void Widget::Load() {
         }
     }
 
-    for (auto w : widgets_) {
-        w->Load();
+    PreRender();
+
+    for (std::list<Widget*>::iterator i=widgets_.begin(); i!=widgets_.end(); i++) {
+        auto w = *i;
+        if (w->is_alive_ && w != NULL) {
+            w->Load();
+        } else if (!w->is_alive_) {
+            printf(">>>>>>>>>>> KILL\n");
+            i = RemoveChild(i);
+        }
     }
 
 }
@@ -77,15 +85,8 @@ void Widget::Render(const Geometry* position) {
     SDL_Rect renderQuad = {pos.x, pos.y, geometry_.w, geometry_.h};
     SDL_RenderCopyEx(renderer_->Sdl(), texture_, NULL, &renderQuad, pos.angle, NULL, SDL_FLIP_NONE);
 
-    PreRender();
-
-    for (std::list<Widget*>::iterator i=widgets_.begin(); i!=widgets_.end(); i++) {
-        auto w = *i;
-        if (w->is_alive_ && w != NULL) {
-            w->Render(&pos);
-        } else if (!w->is_alive_) {
-            i = RemoveChild(i);
-        }
+    for (auto& w : widgets_) {
+        w->Render(&pos);
     }
 
 }
