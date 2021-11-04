@@ -10,16 +10,17 @@ MainWindow::MainWindow() {
 	if(window == NULL) {
 		throw MainWindowException(); 
     }
-
-    #ifdef TARGET_IMX
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-    #endif
 }
 
 MainWindow::~MainWindow() {
 	SDL_DestroyWindow(window);
 	window = NULL;
 }
+
+void MainWindow::SetFullscreen() {
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+}
+
 
 Renderer* MainWindow::CreateRenderer() {
 	return new Renderer(window);

@@ -24,9 +24,10 @@ private:
 public:
 	MainWindow();
 	~MainWindow();
+	void SetFullscreen();
 	Renderer* CreateRenderer();
 };
 
-} // namespace MainWindow
+}
 
 #endif // MAIN_WINDOW_H
