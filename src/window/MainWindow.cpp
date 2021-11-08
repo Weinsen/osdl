@@ -5,7 +5,7 @@
 namespace OSDL {
 
 MainWindow::MainWindow() {
-	window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 600, SDL_WINDOW_SHOWN );
+	window = SDL_CreateWindow("OSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 600, SDL_WINDOW_SHOWN);
 
 	if(window == NULL) {
 		throw MainWindowException(); 

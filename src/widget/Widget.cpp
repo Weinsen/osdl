@@ -1,4 +1,5 @@
 #include "Widget.h"
+#include "Raster.h"
 
 namespace OSDL {
 
@@ -87,6 +88,16 @@ void Widget::Render(const Geometry* position) {
     for (auto& w : widgets_) {
         w->Render(&pos);
     }
+
+}
+
+void Widget::RenderTexture(Raster* root) {
+
+    auto s = root->Render();
+    texture_ = SDL_CreateTextureFromSurface(renderer_->Sdl(), s);
+    if (!geometry_.w) geometry_.w = s->w;
+    if (!geometry_.h) geometry_.h = s->h;
+    SDL_FreeSurface(s);
 
 }
 

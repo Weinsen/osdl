@@ -12,6 +12,7 @@
 namespace OSDL {
 
 class Animation;
+class Raster;
 class Renderer;
 
 class Widget {
@@ -41,6 +42,7 @@ public:
 	void SetAnimation(Animation *animation);
 	void Load();
 	void Render(const Geometry* position = NULL);
+	void RenderTexture(Raster* root);
 	void SetParent(Widget* parent_);
 	void SetRenderer(Renderer* renderer);
 	void AddChild(Widget* child);
