@@ -64,7 +64,6 @@ void Widget::Load() {
         if (w->is_alive_ && w != NULL) {
             w->Load();
         } else if (!w->is_alive_) {
-            printf(">>>>>>>>>>> KILL\n");
             i = RemoveChild(i);
         }
     }
