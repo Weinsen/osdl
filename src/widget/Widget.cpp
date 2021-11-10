@@ -60,10 +60,11 @@ void Widget::Load() {
 
     PreRender();
 
-    for (std::list<Widget*>::iterator i=widgets_.begin(); i!=widgets_.end(); i++) {
+    for (std::list<Widget*>::iterator i=widgets_.begin(); i!=widgets_.end();) {
         auto w = *i;
         if (w->is_alive_ && w != NULL) {
             w->Load();
+            i++;
         } else if (!w->is_alive_) {
             i = RemoveChild(i);
         }
