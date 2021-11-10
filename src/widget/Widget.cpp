@@ -149,6 +149,10 @@ void Widget::SetAlive(bool alive) {
     is_alive_ = alive;
 }
 
+bool Widget::IsAlive() {
+    return is_alive_;
+}
+
 void Widget::SetWidgetName(std::string name) {
     el_name_ = name;
 }

@@ -33,9 +33,21 @@ void Renderer::RenderWidgets() {
 }
 
 void Renderer::LoadWidgets() {
-	for (auto w : widgets_) {
-		w->Load();
-	}
+	for (std::list<Widget*>::iterator i=widgets_.begin(); i!=widgets_.end();) {
+        auto w = *i;
+        if (w->IsAlive() && w != NULL) {
+            w->Load();
+            i++;
+        } else if (!w->IsAlive()) {
+            i = RemoveChild(i);
+        }
+    }
+}
+
+std::list<Widget*>::iterator Renderer::RemoveChild(std::list<Widget*>::iterator i) {
+    delete(*i);
+    i = widgets_.erase(i);
+    return i ;
 }
 
 // TODO check return 

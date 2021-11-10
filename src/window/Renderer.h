@@ -19,6 +19,7 @@ private:
 	std::list<Widget*> widgets_;
 	std::mutex mtx_;
 	bool update_;
+	virtual std::list<Widget*>::iterator RemoveChild(std::list<Widget*>::iterator i);
 
 public:
 	Renderer(SDL_Window* window);

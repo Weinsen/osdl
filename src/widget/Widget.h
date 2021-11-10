@@ -47,6 +47,7 @@ public:
 	void SetRenderer(Renderer* renderer);
 	void AddChild(Widget* child);
 	void SetAlive(bool alive = true);
+	bool IsAlive();
 	void SetWidgetName(std::string name);
 	Widget* GetChildByName(std::string name);
 	Geometry *GetPosition();
